@@ -13,7 +13,7 @@ const questions = [
 ];
 
 // Counters for looping through questions and counting correct answers
-const questionNumber = 0;
+let questionNumber = 0;
 let correct = 0;
 
 // Load question and options
@@ -22,7 +22,7 @@ function loadQuestion() {
     questions[questionNumber].question;
   const options = document.getElementById("options");
   options.innerHTML = "";
-  for (option of questions[questionNumber].options) {
+  for (const option of questions[questionNumber].options) {
     options.innerHTML += `<button class="option">${option}</button>`;
   }
 }
