@@ -1,15 +1,14 @@
 // Array of objects containing questions and answers
-const questions = [
-  {
-    question: "What is 10 + 10?",
-    options: ["8", "28", "30", "20"],
-    answer: "20"
-  },
-  {
-    question: "Who is the biggest cringelord in FDMM?",
-    options: ["Slavisa", "Macura", "Todor", "Majar"],
-    answer: "20"
-  }
+const questions = [{
+        question: "What is 10 + 10?",
+        options: ["8", "28", "30", "20"],
+        answer: "20"
+    },
+    {
+        question: "Who is the biggest cringelord in FDMM?",
+        options: ["Slavisa", "Macura", "Todor", "Majar"],
+        answer: "Majar"
+    }
 ];
 
 // Counters for looping through questions and counting correct answers
@@ -18,33 +17,55 @@ let correct = 0;
 
 // Load question and options
 function loadQuestion() {
-  document.getElementById("question").innerHTML =
-    questions[questionNumber].question;
-  const options = document.getElementById("options");
-  options.innerHTML = "";
-  for (const option of questions[questionNumber].options) {
-    options.innerHTML += `<button class="option">${option}</button>`;
-  }
+    document.getElementById("question").innerHTML =
+        questions[questionNumber].question;
+    const options = document.getElementById("options");
+    options.innerHTML = "";
+    for (const option of questions[questionNumber].options) {
+        options.innerHTML += `<button class="option">${option}</button>`;
+    }
+}
+
+// Update span element
+function correctUpdate(first, second) {
+    document.getElementById("correct-span").innerHTML = `${first} of ${second}`
+}
+
+// Alert user that quiz iz complete
+function quizComplete() {
+    if (questionNumber == questions.length) {
+        alert(`Correct: ${correct} of ${questionNumber}`);
+    }
 }
 
 // Handle answer selection logic (correct / incorrect) --TO DO
 function selectAnswer() {
-  const buttons = document.getElementsByClassName("option");
-  const buttonsArray = Array.from(buttons);
-  buttonsArray.forEach(e => {
-    e.onclick = () => {
-      if (e.innerHTML == questions[questionNumber].answer) {
-        correct += 1;
-        alert(correct);
-      } else {
-        alert("False");
-      }
-    };
-  });
+    const buttons = document.getElementsByClassName("option");
+    const buttonsArray = Array.from(buttons);
+    buttonsArray.forEach(e => {
+        e.onclick = () => {
+            if (e.innerHTML == questions[questionNumber].answer) {
+                correct += 1;
+                questionNumber += 1;
+                correctUpdate(correct, questionNumber)
+                loadQuestion();
+            } else {
+                questionNumber += 1;
+                correctUpdate(correct, questionNumber);
+                loadQuestion();
+            }
+        };
+    });
+    console.log(questions.length);
+    quizComplete();
 }
 
 // Load functions into DOM interactively
 document.addEventListener("DOMContentLoaded", () => {
-  loadQuestion();
-  selectAnswer();
+    loadQuestion();
+});
+
+// Listen to clicks and run selectAnswer function when buttons are clicked
+document.addEventListener("click", () => {
+    selectAnswer();
 });
