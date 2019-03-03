@@ -80,7 +80,7 @@ function resetTimer() {
     counter = 10;
 }
 
-// Handle answer selection logic (correct / incorrect) --TO DO
+// Handle answer selection logic (correct / incorrect)
 function selectAnswer() {
     const buttons = document.getElementsByClassName("option");
     const buttonsArray = Array.from(buttons);
