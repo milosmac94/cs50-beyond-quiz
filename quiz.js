@@ -30,6 +30,7 @@ const questions = [{
 let questionNumber = 0;
 let correct = 0;
 let counter = 10;
+const buttons = document.getElementsByClassName("option");
 
 // Load question and options
 function loadQuestion() {
@@ -50,7 +51,7 @@ function correctUpdate(first, second) {
 // Alert user that quiz iz complete
 function quizComplete() {
     if (questionNumber == questions.length) {
-        alert(`Correct: ${correct} of ${questionNumber}`);
+        alert(`Correct: ${correct} of ${questions.length}`);
         resetGame();
     }
 }
@@ -70,7 +71,7 @@ function count() {
     counter -= 1;
     document.getElementById("counter").innerHTML = counter;
     if (counter == 0) {
-        alert(`Time up! Correct: ${correct} of ${questionNumber}`);
+        alert(`Time up! Correct: ${correct} of ${questions.length}`);
         resetGame();
     }
 }
@@ -82,22 +83,22 @@ function resetTimer() {
 
 // Handle answer selection logic (correct / incorrect)
 function selectAnswer() {
-    const buttons = document.getElementsByClassName("option");
     const buttonsArray = Array.from(buttons);
     buttonsArray.forEach(e => {
         e.onclick = () => {
             if (e.innerHTML == questions[questionNumber].answer) {
                 correct += 1;
                 questionNumber += 1;
-                correctUpdate(correct, questionNumber);
+                correctUpdate(correct, questions.length);
                 loadQuestion();
                 resetTimer();
             } else {
                 questionNumber += 1;
-                correctUpdate(correct, questionNumber);
+                correctUpdate(correct, questions.length);
                 loadQuestion();
                 resetTimer();
             }
+            console.log(correct);
         };
     });
     quizComplete();
@@ -114,6 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Listen to clicks and run selectAnswer function when buttons are clicked
-document.addEventListener("click", () => {
-    selectAnswer();
+document.addEventListener("mousedown", (e) => {
+    if (e.target.className === "option") {
+        selectAnswer();
+    }
 });
