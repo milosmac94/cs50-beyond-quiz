@@ -104,14 +104,26 @@ function selectAnswer() {
     quizComplete();
 }
 
+// Disable buttons if game is not started by user
+function toggleButtons(state) {
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = state;
+    }
+}
+
+// Start game
+const startBtn = document.getElementById("startBtn");
+
 // Load functions into DOM interactively
 document.addEventListener("DOMContentLoaded", () => {
     loadQuestion();
+    toggleButtons(true);
 });
 
 // Run timer
-document.addEventListener("DOMContentLoaded", () => {
+startBtn.addEventListener("click", () => {
     setInterval(count, 1000);
+    toggleButtons(false);
 });
 
 // Listen to clicks and run selectAnswer function when buttons are clicked
