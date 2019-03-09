@@ -31,6 +31,7 @@ let questionNumber = 0;
 let correct = 0;
 let counter = 10;
 const buttons = document.getElementsByClassName("option");
+const startBtn = document.querySelector(".startBtn");
 
 // Load question and options
 function loadQuestion() {
@@ -61,9 +62,16 @@ function resetGame() {
     document.location.reload();
 }
 
-// Reset game when button is pressed
-document.getElementById("resetBtn").onclick = () => {
-    resetGame();
+// Start game when button is pressed
+startBtn.onclick = () => {
+    if (startBtn.className === "startBtn") {
+        setInterval(count, 1000);
+        toggleButtons(false);
+        startBtn.innerHTML = "Reset game";
+        startBtn.className = "resetBtn";
+    } else if (startBtn.className === "resetBtn") {
+        resetGame();
+    }
 };
 
 // Counter function
@@ -111,9 +119,6 @@ function toggleButtons(state) {
     }
 }
 
-// Start game
-const startBtn = document.getElementById("startBtn");
-
 // Load functions into DOM interactively
 document.addEventListener("DOMContentLoaded", () => {
     loadQuestion();
@@ -121,10 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Run timer
-startBtn.addEventListener("click", () => {
-    setInterval(count, 1000);
-    toggleButtons(false);
-});
+startBtn.addEventListener("click", () => {});
 
 // Listen to clicks and run selectAnswer function when buttons are clicked
 document.addEventListener("mousedown", (e) => {
