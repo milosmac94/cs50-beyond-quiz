@@ -63,7 +63,7 @@ function resetGame() {
 }
 
 // Start game when button is pressed
-startBtn.onclick = () => {
+startBtn.addEventListener("click", () => {
     if (startBtn.className === "startBtn") {
         setInterval(count, 1000);
         toggleButtons(false);
@@ -72,7 +72,7 @@ startBtn.onclick = () => {
     } else if (startBtn.className === "resetBtn") {
         resetGame();
     }
-};
+});
 
 // Counter function
 function count() {
