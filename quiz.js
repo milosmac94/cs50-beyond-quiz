@@ -1,3 +1,6 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-use-before-define */
 // Array of objects containing questions and answers
 const questions = [
   {
@@ -38,11 +41,14 @@ const startBtn = document.querySelector(".startBtn");
 function loadQuestion() {
   document.getElementById("question").innerHTML =
     questions[questionNumber].question;
+
   const options = document.getElementById("options");
+
   options.innerHTML = "";
-  for (const option of questions[questionNumber].options) {
+
+  questions[questionNumber].options.forEach(option => {
     options.innerHTML += `<button class="option">${option}</button>`;
-  }
+  });
 }
 
 // Update span element
@@ -52,9 +58,9 @@ function correctUpdate(first, second) {
 
 // Alert user that quiz iz complete
 function quizComplete() {
-  if (questionNumber == questions.length) {
+  if (questionNumber === questions.length) {
     alert(`Correct: ${correct} of ${questions.length}`);
-    resetGame();
+    setTimeout(resetGame, 1000);
   }
 }
 
@@ -71,7 +77,7 @@ startBtn.addEventListener("click", () => {
     startBtn.innerHTML = "Reset game";
     startBtn.className = "resetBtn";
   } else if (startBtn.className === "resetBtn") {
-    resetGame();
+    setTimeout(resetGame, 1000);
   }
 });
 
@@ -79,9 +85,9 @@ startBtn.addEventListener("click", () => {
 function count() {
   counter -= 1;
   document.getElementById("counter").innerHTML = counter;
-  if (counter == 0) {
+  if (counter === 0) {
     alert(`Time up! Correct: ${correct} of ${questions.length}`);
-    resetGame();
+    setTimeout(resetGame, 1000);
   }
 }
 
@@ -95,22 +101,24 @@ function selectAnswer() {
   const buttonsArray = Array.from(buttons);
   buttonsArray.forEach(e => {
     e.onclick = () => {
-      if (e.innerHTML == questions[questionNumber].answer) {
+      // Simulate start of questions at 1 instead of 0 in order to comply with quizComplete function
+      questionNumber += 1;
+      if (e.innerHTML == questions[questionNumber - 1].answer) {
         correct += 1;
-        questionNumber += 1;
         correctUpdate(correct, questions.length);
+        // Check if quiz complete (no more questions)
+        quizComplete();
         loadQuestion();
         resetTimer();
       } else {
-        questionNumber += 1;
         correctUpdate(correct, questions.length);
+        // Check if quiz complete (no more questions)
+        quizComplete();
         loadQuestion();
         resetTimer();
       }
-      console.log(correct);
     };
   });
-  quizComplete();
 }
 
 // Disable buttons if game is not started by user
