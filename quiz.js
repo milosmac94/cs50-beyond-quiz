@@ -9,9 +9,9 @@ const questions = [
     answer: "20"
   },
   {
-    question: "Who is the biggest cringelord in FDMM?",
-    options: ["Slavisa", "Macura", "Todor", "Majar"],
-    answer: "Majar"
+    question: "How much is PI?",
+    options: ["3.14", "4.13", "0.01", "5.55"],
+    answer: "3.14"
   },
   {
     question: "Who won two Oscars in 2019?",
