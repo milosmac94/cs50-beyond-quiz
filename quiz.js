@@ -15,18 +15,8 @@ const questions = [
   },
   {
     question: "Who won two Oscars in 2019?",
-    options: ["Maharshala Ali", "Brad Cooper", "Chris Bale", "Your Mom"],
-    answer: "Your Mom"
-  },
-  {
-    question: "What is What?",
-    options: ["What?", "But?", "What butt?", "Butt what?"],
-    answer: "What?"
-  },
-  {
-    question: "How many oinks in a boink?",
-    options: ["Twelve", "Six", "Oinkteen", "Wtf"],
-    answer: "Oinkteen"
+    options: ["Maharshala Ali", "Brad Cooper", "Chris Bale", "Rami Malek"],
+    answer: "Rami Malek"
   }
 ];
 
